@@ -1,23 +1,21 @@
 import React from 'react';
 import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [state, setState] = useState<Date>(new Date());
+
+  // let state = new Date();
+  // setIntervalは第２ひきすうごとに第１引数の関数を実行する
+  setInterval(() => {
+    setState(new Date());
+    // state = new Date();
+  }, 1000);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>{state.toLocaleTimeString()}</p>
       </header>
     </div>
   );

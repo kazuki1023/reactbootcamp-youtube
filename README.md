@@ -1,46 +1,66 @@
-# Getting Started with Create React App
+## [第１回まとめ](https://github.com/Hiro-mackay/react-bootcamp/tree/bootcamp-1)
+- index.tsxが表示される
+    - そこにimportして、呼び出してあげればいい。
+- 動的に変更される！
+    - 変更内容がすぐに確認できる。
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## [第2回まとめ](https://github.com/Hiro-mackay/react-bootcamp/tree/bootcamp-2)
+- component
+    - 一つの部品
+        -ex) layout/header/sidebar/footer/main
+        - これらを切り出して使うことができるようになる
+            - 注)子の場合、layoutは、それぞれのcomponentsをまとめあげて、デザインを表示するcomponent
+    - その実態
+        - 関数
+        - 関数内でhtml要素をreturnすれば良い。
+            - このhtml要素==jsx
 
-## Available Scripts
+- state
+    - 変数
+    ```
+    // reactのライブラリから、useStateをimport
+    import { useState } from 'react';
 
-In the project directory, you can run:
+    // 初期値を0としたstateを宣言
+    // const state = 0 のイメージ
+    const [state, setState] = useState(0);
 
-### `npm start`
+    // 値を変更する場合
+    // state の値を 1 に変更
+    setState(1)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    ```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+    - useState(0)で初期値が0であることを明記し、それを
+    stateに代入
+    - setState(1)でstateの値を変更
 
-### `npm test`
+    - reactは、このstateが変更されたかどうかを判断して画面表示を切り替えている。
+        - setState関数が変更されているかどうかを呼び出す関数
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+        - setStateでstateを変更しなくちゃ、画面表示は更新されない。
+        - useStateはただ初期値を定義するだけ。
+        - その後のstateの変更はsetState
 
-### `npm run build`
+- componentsの設計
+    - エントリーポイント
+        - プログラムあるいはソースコードが実行される開始点を指す
+        - reactではindex.tsx
+    - [デザイン](https://www.figma.com/file/xWjQFqQLjDZttAbUhps2EJ/?node-id=0%3A1)
+    - ### ファイルごとの役割
+    - compontents
+        - ロジックを記述しない
+            - fetch,非同期処理ダメ
+        - データは親コンポーネントから受け取る。
+    - layouts
+        - 全体でのレイアウトを共通化する
+        - デザインを記述する
+    - pages
+        - ページごとにレイアウトを変更する
+            - /loginというルーティングに対し、loginにひつようなcomponent、ロジックを呼び出す。
+        - データは自分で取得する
+    - templates
+        - データを受け取って、表示するだけのcomponent
+        - ロジックを持ったcomponent
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<!-- 20230804ここまで、次はフォルダ作成から -->
