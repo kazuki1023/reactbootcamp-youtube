@@ -4,7 +4,7 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [state, setState] = useState(new Date());
+  const [state, setState] = useState<Date>(new Date());
 
   // let state = new Date();
   // setIntervalは第２ひきすうごとに第１引数の関数を実行する
