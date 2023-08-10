@@ -5,6 +5,10 @@ const APP_BAR = 64;
 const SIDEBAR_WIDTH = 240;
 
 export default makeStyles({
+  root: {
+    display: "flex",
+    minHeight: "100%",
+  },
   flex: {
     display: "flex",
   },
