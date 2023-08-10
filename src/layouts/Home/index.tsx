@@ -13,12 +13,12 @@ export const HomeLayout = () => {
       {/*
         Sidebarとメインコンポーネントを囲む<div>を作成し、Sidebarとメインコンポーネントを横並びにする
       */}
-        <div className={styles.sidebar}>
-          <Sidebar />
-        </div>
-        <div className={styles.main}>
-          <Outlet />
-        </div>
+      <div className={styles.sidebar}>
+        <Sidebar />
+      </div>
+      <div className={styles.main}>
+        <Outlet />
+      </div>
     </div>
   );
 };

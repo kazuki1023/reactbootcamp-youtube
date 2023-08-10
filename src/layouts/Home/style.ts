@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 // 使いまわせるように、`Header`コンポーネントの'height'を定数化
 const APP_BAR = 64;
-const SIDEBAR_WIDTH = 240;
+const SIDEBAR_WIDTH = 380;
 
 export default makeStyles({
   root: {
