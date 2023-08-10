@@ -66,4 +66,10 @@
             - 特定のページでロジックを持つcomponent→pages
 
 <!-- 20230804ここまで、次はフォルダ作成から -->
+- ライブラリのinstall
+    - 
+    ```
+     npm install react-router-dom @types/react-router-dom history 
+     ```
+     
 
