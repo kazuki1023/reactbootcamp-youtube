@@ -63,13 +63,14 @@
         - データを受け取って、表示するだけのcomponent
             - ロジックを持ったcomponent→templates
             - ロジックを持たないcomponent→components
+                →ロゴとか
             - 特定のページでロジックを持つcomponent→pages
 
 <!-- 20230804ここまで、次はフォルダ作成から -->
-- ライブラリのinstall
-    - 
-    ```
-     npm install react-router-dom @types/react-router-dom history 
-     ```
-     
+
+- header
+    - 複数で使われる、ロジックを持つcomponent
+        →templatesファイルの中で作成する
+
+- 
 
