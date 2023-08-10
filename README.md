@@ -61,6 +61,9 @@
         - データは自分で取得する
     - templates
         - データを受け取って、表示するだけのcomponent
-        - ロジックを持ったcomponent
+            - ロジックを持ったcomponent→templates
+            - ロジックを持たないcomponent→components
+            - 特定のページでロジックを持つcomponent→pages
 
 <!-- 20230804ここまで、次はフォルダ作成から -->
+
