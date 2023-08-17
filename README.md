@@ -96,4 +96,6 @@ const handleClick = () => {
 - ?記法を用いることで、clickが「あったら呼び出す」、「なかったら呼び出さない」という処理ができる
 - これを使うことで、inputRef.currentがnullの場合、エラーが発生しない。
 
+- 20230817終了
+[次回はここから](https://github.com/Hiro-mackay/react-bootcamp/tree/bootcamp-3#apollo-client)
 
