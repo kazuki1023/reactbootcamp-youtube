@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, DialogContent, Divider} from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, Grid, Divider} from "@material-ui/core";
 
 export const Upload = () => {
   return (
@@ -10,7 +10,23 @@ export const Upload = () => {
       <Divider />
 
       {/* コンテント用コンポーネント */}
-      <DialogContent>ダイアログのコンテンツを作成</DialogContent>
+      <DialogContent>
+        <Grid container spacing={4}>
+          <Grid xs item>
+            左側
+          </Grid>
+
+          {/*
+            真ん中に縦線を挿入
+            デザインにあるような線を入れるため
+          */}
+          <Divider orientation="vertical" flexItem />
+
+          <Grid xs item>
+            右側
+          </Grid>
+        </Grid>
+      </DialogContent>
     </Dialog>
   );
 };
