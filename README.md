@@ -1,3 +1,10 @@
+## 作業開始時
+```
+nvm use 16
+```
+
+で使うnodeのバージョンを指定する。
+
 ## [第１回まとめ](https://github.com/Hiro-mackay/react-bootcamp/tree/bootcamp-1)
 - index.tsxが表示される
     - そこにimportして、呼び出してあげればいい。
@@ -72,5 +79,7 @@
     - 複数で使われる、ロジックを持つcomponent
         →templatesファイルの中で作成する
 
-- 
+```
+nvm use 16
+```
 
