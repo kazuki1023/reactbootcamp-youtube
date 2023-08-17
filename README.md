@@ -82,5 +82,18 @@ nvm use 16
 
 
 ## 動画アップロード画面の作成(2023/08/17)
+- useref
+    - react特有
+    - なんらかの値を代入することができるようになる
+    - 代入されたものは、currentというプロパティに格納、.currentで参照できる
+    - useRef で作成した関数を"ref"にわたすことで、その HTML 要素に直接アクセスできるようになります。
+- tyoescriptの？記法
+```
+const handleClick = () => {
+  inputRef.current?.click();
+};
+```
+- ?記法を用いることで、clickが「あったら呼び出す」、「なかったら呼び出さない」という処理ができる
+- これを使うことで、inputRef.currentがnullの場合、エラーが発生しない。
 
 
