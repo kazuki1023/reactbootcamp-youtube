@@ -1,4 +1,5 @@
 import { Dialog, DialogTitle, DialogContent, Grid, Divider} from "@material-ui/core";
+import { VideoSelect } from "./VideoSelector";
 
 export const Upload = () => {
   return (
@@ -13,7 +14,7 @@ export const Upload = () => {
       <DialogContent>
         <Grid container spacing={4}>
           <Grid xs item>
-            左側
+            <VideoSelect />
           </Grid>
 
           {/*
