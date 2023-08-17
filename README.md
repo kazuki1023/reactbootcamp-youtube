@@ -98,4 +98,6 @@ const handleClick = () => {
 
 - 20230817終了
 [次回はここから](https://github.com/Hiro-mackay/react-bootcamp/tree/bootcamp-3#apollo-client)
+[firebase](https://console.firebase.google.com/u/1/project/reactbootcamp-f2155/overview)
+[hasura](https://cloud.hasura.io/project/9c279459-49d8-4316-ad80-606f35f97862/integrations)
 
