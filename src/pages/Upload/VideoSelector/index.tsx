@@ -65,13 +65,10 @@ export const VideoSelect = () => {
     if (file) {
       // URL.createObjectURLは、ファイルを引数に受け取り、<video>タグで読み込み可能なローカルURLを生成します。
       // URL.createObjectURLで生成されたURLを<video>のsrcにわたすことでファイルを動画で表示できます。
-      setVideoURL(URL.createObjectURL(file));
+      const videoURL = URL.createObjectURL(file);
+      setVideoURL(videoURL);
+      createThumbnail(videoURL);
     }
-
-
-    // file変数が変更されるのを監視する
-    // fileの変更を検知したら、上記を実行する
-    // fileはstateで宣言された変数でなければ、変更の検知はされない。
   }, [file]);
   return (
     // スタイリング適用
