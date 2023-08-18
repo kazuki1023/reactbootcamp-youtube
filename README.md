@@ -101,3 +101,11 @@ const handleClick = () => {
 [firebase](https://console.firebase.google.com/u/1/project/reactbootcamp-f2155/overview)
 [hasura](https://cloud.hasura.io/project/9c279459-49d8-4316-ad80-606f35f97862/integrations)
 
+## [第4回](https://github.com/Hiro-mackay/react-bootcamp/tree/bootcamp-4/document)
+- useEffect
+    - 第二引数の値が変わったら、第一引数の関数を実行する
+    - 第二引数がない場合、初回のみ実行される
+- カスタムhook
+    - 接頭辞にuseをつける
+    - そうすると勝手にreactがカスタムhookと認識してくれる
+
