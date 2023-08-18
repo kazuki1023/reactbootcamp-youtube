@@ -8,7 +8,14 @@ query Videos {
     owner_id
     duration
     views
-    updated_at
+     owner {
+      id
+      email
+      name
+      profile_photo_url
+      updated_at
+      created_at
+    }
     created_at
   }
 }
