@@ -12,13 +12,14 @@ import { UploadForm } from "./UploadForm";
 import { VideoSelect } from "./VideoSelector";
 import { useRecoilValue } from "recoil";
 import { AccountLoaded } from "../../stores/AccountLoaded";
-import { useEffect } from "react";
+import { useEffect ,useState} from "react";
 import { GlobalUser } from "../../stores/User";
 import { useNavigate } from "react-router-dom";
 
-
 // import
 import useStyles from "./style";
+
+
 
 export const Upload = () => {
 
@@ -27,6 +28,10 @@ export const Upload = () => {
 
   const accountLoaded = useRecoilValue(AccountLoaded);
   const user = useRecoilValue(GlobalUser);
+
+  const [videoFile, setVideoFile] = useState<File>();
+  const [thumbFile, setThumbFile] = useState<File>();
+
 
   // react routerを使用する
   const navigate = useNavigate();
@@ -47,11 +52,15 @@ export const Upload = () => {
       <DialogContent className={styles.body}>
         <Grid container spacing={4}>
           <Grid xs item>
-            <VideoSelect />
+              <VideoSelect
+                videoFile={videoFile}
+                setVideoFile={setVideoFile}
+                setThumbFile={setThumbFile}
+              />
           </Grid>
           <Divider orientation="vertical" flexItem />
           <Grid xs item>
-            <UploadForm />
+            <UploadForm videoFile={videoFile} thumbFile={thumbFile} />
           </Grid>
         </Grid>
       </DialogContent>

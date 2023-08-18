@@ -17,4 +17,13 @@ export default makeStyles({
   full: {
     width: "100%",
   },
+  thumbnail: {
+    paddingTop: "56.25%",
+    cursor: "pointer",
+  },
+
+  // 追加
+  selectedThumb: {
+    border: "2px solid red",
+  },
 });
