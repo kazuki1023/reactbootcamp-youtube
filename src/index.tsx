@@ -7,7 +7,6 @@ import { createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 
 import GlobalStyle from "./GlobalStyle";
 import {
-  ApolloProvider,
   ApolloClient,
   createHttpLink,
   InMemoryCache,
@@ -16,6 +15,7 @@ import { setContext } from "@apollo/client/link/context";
 import { RecoilRoot } from "recoil";
 import { AuthStateListener } from "./providers/AuthStateListener";
 import { GlobalAccout } from "./providers/GlobalAccount";
+import { ApolloProvider } from "./providers/ApolloClient";
 
 // GraphQl APIのエンドポイントを指定する
 const httpLink = createHttpLink({
@@ -53,7 +53,7 @@ ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
       <ThemeProvider theme={theme}>
-        <ApolloProvider client={apolloClient}>
+        <ApolloProvider >
           {/*
             ユーザーの認証情報を読む込み
           */}
