@@ -13,6 +13,7 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { RecoilRoot } from "recoil";
 
 // GraphQl APIのエンドポイントを指定する
 const httpLink = createHttpLink({

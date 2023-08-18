@@ -13,6 +13,7 @@ import useStyles from "./style";
 
 import { useUserByIdQuery } from "../../utils/graphql/generated";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const DashboardHeader = () => {
   const styles = useStyles();
@@ -39,9 +40,9 @@ export const DashboardHeader = () => {
           <IconButton>
             <MenuIcon />
           </IconButton>
-          <div className={styles.logo}>
+          <Link to="/" className={styles.logo}>
             <Logo />
-          </div>
+          </Link>
         </div>
 
         <SearchBar />
