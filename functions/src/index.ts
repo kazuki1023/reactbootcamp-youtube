@@ -28,10 +28,10 @@ exports.processSignUp = functions.auth.user().onCreate((user) => {
       // firestoreに"user.uid"に`refreshTime`という名前のタイムスタンプを作成します。
       // クライアントは、このデータが作成されるまで待ちます。
       // firestoreは、`coolection`の名前と、`doc`の文字列が判別すれば同じデータにアクセスできる
-    return admin
+      return admin
         .firestore()
         .collection("users")
         .doc(user.uid)
-        .set({ refreshTime: admin.firestore.FieldValue.serverTimestamp() });
+        .set({refreshTime: admin.firestore.FieldValue.serverTimestamp()});
     });
 });
