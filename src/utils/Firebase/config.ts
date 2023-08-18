@@ -1,24 +1,17 @@
 import firebase from "firebase";
-
 const firebaseConfig = {
-  apiKey: "AIzaSyBz8Biwxhal2nW1iBQTqI1aqkBmaZ7zpPw",
-  authDomain: "reactbootcamp-f2155.firebaseapp.com",
-  projectId: "reactbootcamp-f2155",
-  storageBucket: "reactbootcamp-f2155.appspot.com",
-  messagingSenderId: "77915777042",
-  appId: "1:77915777042:web:45a4f0295dc22411d610cb",
-  measurementId: "G-ZF7HPCC89L"
+  apiKey: "AIzaSyCm8ZVPFvB4O5YVyNqA-16zWrRpbxd0RVQ",
+  authDomain: "react-bootcamp-78947.firebaseapp.com",
+  projectId: "react-bootcamp-78947",
+  storageBucket: "react-bootcamp-78947.appspot.com",
+  messagingSenderId: "236750478038",
+  appId: "1:236750478038:web:fc2e6a6e2f856cae1c4777",
 };
-
-// firebaseパッケージをAPI Keyで初期化
-// Firebaseコンソールでさksウエイ他アプリとReactを紐づける処理
 firebase.initializeApp(firebaseConfig);
-
-// 認証用のfirebaseモジュール
 export const fireAuth = firebase.auth();
-
-// ストレージ用のfirebaseモジュール
 export const storage = firebase.storage();
 
-// 初期化済みのfirebaseパッケージを確実に使用するためのexport defaultでfirebaseパッケージをexport
+// firestoreのfirebaseモジュール
+export const firestore = firebase.firestore();
+
 export default firebase;
