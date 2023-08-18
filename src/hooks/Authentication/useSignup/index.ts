@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { GlobalUser } from "../../../stores/User";
 import { FireSignupType } from "../../../utils/Firebase/signup";
 import { signup as fireSignup } from "../../../utils/Firebase/signup";
 import { useInsertUserMutation } from "../../../utils/graphql/generated";
@@ -20,6 +22,7 @@ export const useSignup = () => {
 
   // リダイレクト用の関数
   const navigate = useNavigate();
+  const setGlobalUser = useSetRecoilState(GlobalUser);
 
   // userを追加するためのGraohQL Mutation Hooks
   const [insertMutation, { error: apolloError }] = useInsertUserMutation();
