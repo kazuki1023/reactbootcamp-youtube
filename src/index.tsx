@@ -15,6 +15,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { RecoilRoot } from "recoil";
 import { AuthStateListener } from "./providers/AuthStateListener";
+import { GlobalAccout } from "./providers/GlobalAccount";
 
 // GraphQl APIのエンドポイントを指定する
 const httpLink = createHttpLink({
@@ -57,11 +58,13 @@ ReactDOM.render(
             ユーザーの認証情報を読む込み
           */}
           <AuthStateListener>
-            <BrowserRouter>
-              <CssBaseline />
-              {/* <GlobalStyle /> */}
-              <RootRouter />
-            </BrowserRouter>
+          <GlobalAccout>
+              <BrowserRouter>
+                <CssBaseline />
+                {/* <GlobalStyle /> */}
+                <RootRouter />
+              </BrowserRouter>
+            </GlobalAccout>
           </AuthStateListener>
         </ApolloProvider>
       </ThemeProvider>
