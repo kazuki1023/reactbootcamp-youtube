@@ -62,7 +62,7 @@ ReactDOM.render(
           ブラウザの違いを吸収し、どのデバイスでは同じように表示する用のCSSを使用する
         */}
           <CssBaseline />
-          <GlobalStyle />
+          {/* <GlobalStyle /> */}
           <RootRouter />
         </BrowserRouter>
       </ApolloProvider>

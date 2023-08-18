@@ -374,6 +374,7 @@ export type Timestamptz_Comparison_Exp = {
 export type Users = {
   __typename?: 'users';
   created_at: Scalars['timestamptz']['output'];
+  email?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   profile_photo_url: Scalars['String']['output'];
@@ -408,6 +409,7 @@ export type Users_Bool_Exp = {
   _not?: InputMaybe<Users_Bool_Exp>;
   _or?: InputMaybe<Array<Users_Bool_Exp>>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  email?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   profile_photo_url?: InputMaybe<String_Comparison_Exp>;
@@ -423,6 +425,7 @@ export enum Users_Constraint {
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   profile_photo_url?: InputMaybe<Scalars['String']['input']>;
@@ -433,6 +436,7 @@ export type Users_Insert_Input = {
 export type Users_Max_Fields = {
   __typename?: 'users_max_fields';
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   profile_photo_url?: Maybe<Scalars['String']['output']>;
@@ -443,6 +447,7 @@ export type Users_Max_Fields = {
 export type Users_Min_Fields = {
   __typename?: 'users_min_fields';
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   profile_photo_url?: Maybe<Scalars['String']['output']>;
@@ -468,6 +473,7 @@ export type Users_On_Conflict = {
 /** Ordering options when selecting data from "users". */
 export type Users_Order_By = {
   created_at?: InputMaybe<Order_By>;
+  email?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   profile_photo_url?: InputMaybe<Order_By>;
@@ -484,6 +490,8 @@ export enum Users_Select_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  Email = 'email',
+  /** column name */
   Id = 'id',
   /** column name */
   Name = 'name',
@@ -496,6 +504,7 @@ export enum Users_Select_Column {
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   profile_photo_url?: InputMaybe<Scalars['String']['input']>;
@@ -513,6 +522,7 @@ export type Users_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Users_Stream_Cursor_Value_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   profile_photo_url?: InputMaybe<Scalars['String']['input']>;
@@ -523,6 +533,8 @@ export type Users_Stream_Cursor_Value_Input = {
 export enum Users_Update_Column {
   /** column name */
   CreatedAt = 'created_at',
+  /** column name */
+  Email = 'email',
   /** column name */
   Id = 'id',
   /** column name */
@@ -833,24 +845,28 @@ export type Videos_Variance_Fields = {
 export type InsertUserMutationVariables = Exact<{
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
+  email: Scalars['String']['input'];
 }>;
 
 
-export type InsertUserMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', id: string, name: string, profile_photo_url: string, created_at: any, updated_at: any } | null };
+export type InsertUserMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', id: string, name: string, email?: string | null, profile_photo_url: string, created_at: any, updated_at: any } | null };
 
 export type UserByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type UserByIdQuery = { __typename?: 'query_root', users_by_pk?: { __typename?: 'users', id: string, name: string, profile_photo_url: string, updated_at: any, created_at: any } | null };
+export type UserByIdQuery = { __typename?: 'query_root', users_by_pk?: { __typename?: 'users', id: string, name: string, email?: string | null, profile_photo_url: string, updated_at: any, created_at: any } | null };
 
 
 export const InsertUserDocument = gql`
-    mutation InsertUser($id: String!, $name: String!) {
-  insert_users_one(object: {id: $id, name: $name, profile_photo_url: ""}) {
+    mutation InsertUser($id: String!, $name: String!, $email: String!) {
+  insert_users_one(
+    object: {id: $id, name: $name, profile_photo_url: "", email: $email}
+  ) {
     id
     name
+    email
     profile_photo_url
     created_at
     updated_at
@@ -874,6 +890,7 @@ export type InsertUserMutationFn = Apollo.MutationFunction<InsertUserMutation, I
  *   variables: {
  *      id: // value for 'id'
  *      name: // value for 'name'
+ *      email: // value for 'email'
  *   },
  * });
  */
@@ -889,6 +906,7 @@ export const UserByIdDocument = gql`
   users_by_pk(id: $id) {
     id
     name
+    email
     profile_photo_url
     updated_at
     created_at
