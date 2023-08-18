@@ -560,6 +560,7 @@ export type Videos = {
   duration: Scalars['Int']['output'];
   id: Scalars['String']['output'];
   owner_id: Scalars['String']['output'];
+  thunbnail_url: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updated_at: Scalars['timestamptz']['output'];
   video_url: Scalars['String']['output'];
@@ -613,6 +614,7 @@ export type Videos_Bool_Exp = {
   duration?: InputMaybe<Int_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
   owner_id?: InputMaybe<String_Comparison_Exp>;
+  thunbnail_url?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   video_url?: InputMaybe<String_Comparison_Exp>;
@@ -638,6 +640,7 @@ export type Videos_Insert_Input = {
   duration?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   owner_id?: InputMaybe<Scalars['String']['input']>;
+  thunbnail_url?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   video_url?: InputMaybe<Scalars['String']['input']>;
@@ -652,6 +655,7 @@ export type Videos_Max_Fields = {
   duration?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   owner_id?: Maybe<Scalars['String']['output']>;
+  thunbnail_url?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   video_url?: Maybe<Scalars['String']['output']>;
@@ -666,6 +670,7 @@ export type Videos_Min_Fields = {
   duration?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   owner_id?: Maybe<Scalars['String']['output']>;
+  thunbnail_url?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   video_url?: Maybe<Scalars['String']['output']>;
@@ -695,6 +700,7 @@ export type Videos_Order_By = {
   duration?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   owner_id?: InputMaybe<Order_By>;
+  thunbnail_url?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   video_url?: InputMaybe<Order_By>;
@@ -719,6 +725,8 @@ export enum Videos_Select_Column {
   /** column name */
   OwnerId = 'owner_id',
   /** column name */
+  ThunbnailUrl = 'thunbnail_url',
+  /** column name */
   Title = 'title',
   /** column name */
   UpdatedAt = 'updated_at',
@@ -735,6 +743,7 @@ export type Videos_Set_Input = {
   duration?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   owner_id?: InputMaybe<Scalars['String']['input']>;
+  thunbnail_url?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   video_url?: InputMaybe<Scalars['String']['input']>;
@@ -777,6 +786,7 @@ export type Videos_Stream_Cursor_Value_Input = {
   duration?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   owner_id?: InputMaybe<Scalars['String']['input']>;
+  thunbnail_url?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   video_url?: InputMaybe<Scalars['String']['input']>;
@@ -802,6 +812,8 @@ export enum Videos_Update_Column {
   Id = 'id',
   /** column name */
   OwnerId = 'owner_id',
+  /** column name */
+  ThunbnailUrl = 'thunbnail_url',
   /** column name */
   Title = 'title',
   /** column name */
@@ -850,6 +862,23 @@ export type InsertUserMutationVariables = Exact<{
 
 
 export type InsertUserMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', id: string, name: string, email?: string | null, profile_photo_url: string, created_at: any, updated_at: any } | null };
+
+export type InsertVideoMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  thumbnail_url: Scalars['String']['input'];
+  video_url: Scalars['String']['input'];
+  owner_id: Scalars['String']['input'];
+}>;
+
+
+export type InsertVideoMutation = { __typename?: 'mutation_root', insert_videos_one?: { __typename?: 'videos', id: string, title: string, description: string, video_url: string, thunbnail_url: string, owner_id: string, duration: number, views: number, updated_at: any, created_at: any } | null };
+
+export type VideosQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type VideosQuery = { __typename?: 'query_root', videos: Array<{ __typename?: 'videos', id: string, title: string, description: string, thunbnail_url: string, video_url: string, owner_id: string, duration: number, views: number, updated_at: any, created_at: any }> };
 
 export type UserByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -901,6 +930,98 @@ export function useInsertUserMutation(baseOptions?: Apollo.MutationHookOptions<I
 export type InsertUserMutationHookResult = ReturnType<typeof useInsertUserMutation>;
 export type InsertUserMutationResult = Apollo.MutationResult<InsertUserMutation>;
 export type InsertUserMutationOptions = Apollo.BaseMutationOptions<InsertUserMutation, InsertUserMutationVariables>;
+export const InsertVideoDocument = gql`
+    mutation InsertVideo($id: String!, $title: String!, $description: String = "", $thumbnail_url: String!, $video_url: String!, $owner_id: String!) {
+  insert_videos_one(
+    object: {id: $id, title: $title, description: $description, video_url: $video_url, thunbnail_url: $thumbnail_url, owner_id: $owner_id, duration: 0, views: 0}
+  ) {
+    id
+    title
+    description
+    video_url
+    thunbnail_url
+    owner_id
+    duration
+    views
+    updated_at
+    created_at
+  }
+}
+    `;
+export type InsertVideoMutationFn = Apollo.MutationFunction<InsertVideoMutation, InsertVideoMutationVariables>;
+
+/**
+ * __useInsertVideoMutation__
+ *
+ * To run a mutation, you first call `useInsertVideoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertVideoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertVideoMutation, { data, loading, error }] = useInsertVideoMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      title: // value for 'title'
+ *      description: // value for 'description'
+ *      thumbnail_url: // value for 'thumbnail_url'
+ *      video_url: // value for 'video_url'
+ *      owner_id: // value for 'owner_id'
+ *   },
+ * });
+ */
+export function useInsertVideoMutation(baseOptions?: Apollo.MutationHookOptions<InsertVideoMutation, InsertVideoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertVideoMutation, InsertVideoMutationVariables>(InsertVideoDocument, options);
+      }
+export type InsertVideoMutationHookResult = ReturnType<typeof useInsertVideoMutation>;
+export type InsertVideoMutationResult = Apollo.MutationResult<InsertVideoMutation>;
+export type InsertVideoMutationOptions = Apollo.BaseMutationOptions<InsertVideoMutation, InsertVideoMutationVariables>;
+export const VideosDocument = gql`
+    query Videos {
+  videos {
+    id
+    title
+    description
+    thunbnail_url
+    video_url
+    owner_id
+    duration
+    views
+    updated_at
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useVideosQuery__
+ *
+ * To run a query within a React component, call `useVideosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVideosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVideosQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useVideosQuery(baseOptions?: Apollo.QueryHookOptions<VideosQuery, VideosQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VideosQuery, VideosQueryVariables>(VideosDocument, options);
+      }
+export function useVideosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VideosQuery, VideosQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VideosQuery, VideosQueryVariables>(VideosDocument, options);
+        }
+export type VideosQueryHookResult = ReturnType<typeof useVideosQuery>;
+export type VideosLazyQueryHookResult = ReturnType<typeof useVideosLazyQuery>;
+export type VideosQueryResult = Apollo.QueryResult<VideosQuery, VideosQueryVariables>;
 export const UserByIdDocument = gql`
     query UserById($id: String!) {
   users_by_pk(id: $id) {
