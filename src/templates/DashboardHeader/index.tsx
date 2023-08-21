@@ -2,6 +2,7 @@ import {
   AppBar,
   Avatar,
   IconButton,
+  Button,
   Toolbar,
   Typography,
 } from "@material-ui/core";
@@ -13,9 +14,13 @@ import useStyles from "./style";
 
 import { useUserByIdQuery } from "../../utils/graphql/generated";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { GlobalUser } from "../../stores/User";
 
 export const DashboardHeader = () => {
   const styles = useStyles();
+  const globalUser = useRecoilValue(GlobalUser);
 
   const { data, error } = useUserByIdQuery({
     variables: { id: "testid" },
@@ -23,7 +28,6 @@ export const DashboardHeader = () => {
 
   useEffect(() => {
     console.log(data);
-    console.log(error);
   }, [data]);
 
   return (
@@ -39,9 +43,9 @@ export const DashboardHeader = () => {
           <IconButton>
             <MenuIcon />
           </IconButton>
-          <div className={styles.logo}>
+          <Link to="/" className={styles.logo}>
             <Logo />
-          </div>
+          </Link>
         </div>
 
         <SearchBar />
@@ -54,15 +58,22 @@ export const DashboardHeader = () => {
             データが取得されたら、`data`内に`Schema`と同じ名前のオブジェクトの中にデータが格納されます。
             データがないときは表示されません。
           */}
-          <IconButton>
-            <Typography>{data?.users_by_pk?.name}</Typography>
-          </IconButton>
-          <IconButton>
-            <VideoCallIcon />
-          </IconButton>
-          <IconButton className={styles.profileIcon}>
-            <Avatar />
-          </IconButton>
+          {globalUser ? (
+            <>
+              <Link to="/upload">
+                <IconButton>
+                  <VideoCallIcon />
+                </IconButton>
+              </Link>
+              <IconButton className={styles.profileIcon}>
+                <Avatar />
+              </IconButton>
+            </>
+          ) : (
+            <Button variant="outlined" color="primary" href="/login">
+              ログイン
+            </Button>
+          )}
         </div>
       </Toolbar>
     </AppBar>

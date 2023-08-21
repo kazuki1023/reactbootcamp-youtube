@@ -8,8 +8,8 @@ module.exports = {
     },
   },
   documents: [
-    "graphql/query/users.graphql",
-    "graphql/mutation/InsertUser.graphql",
+    "graphql/query/*.graphql",
+    "graphql/mutation/*.graphql",
   ],
   generates: {
     "src/utils/graphql/generated.ts": {

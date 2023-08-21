@@ -9,55 +9,70 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import { useEffect, useState } from "react";
 import useStyles from "./style";
 
-export const VideoPlayerCard = () => {
+export type VideoPlayerCardProps = {
+  title: string | undefined;
+  description: string | undefined;
+  views: number | undefined;
+  ownerName: string | undefined;
+  date: Date | undefined;
+  fetcher: () => Promise<string | undefined>;
+};
+
+export const VideoPlayerCard = ({
+  title,
+  description,
+  views,
+  ownerName,
+  date,
+  fetcher,
+}: VideoPlayerCardProps) => {
   const styles = useStyles();
+  const [src, setSrc] = useState<string>();
+  useEffect(() => {
+    // Firebas Storageから動画のダウンロードリンクを取得する
+    fetcher().then(setSrc);
+  });
   return (
     // stylesの適用
     <Card className={styles.transparent} elevation={0} square>
+    {/*
+      追加
+      srcに動画のパスを指定する
+    */}
+    <CardMedia component="video" controls src={src} />
 
-      <CardMedia
-        component="video"
-        controls
-        src="/static/production_ID_4763824.mp4"
-      />
+    <CardContent className={styles.paddingHorizontalLess}>
+      <Typography component="h2" variant="h6">
+        {title}
+      </Typography>
 
-      {/*
-        stylesの適用
-      */}
-      <CardContent className={styles.paddingHorizontalLess}>
-        <Typography component="h2" variant="h6">
-          Organization Admin Settings: Dashboard overview [1/7]
-        </Typography>
+      <Typography variant="body2" color="textSecondary">
+        {/*
+          追加
+          動画の視聴回数と動画のアップロード日を表示
+        */}
+        {views} 回視聴 • {date ? new Date(date).toLocaleDateString() : ""}
+      </Typography>
+    </CardContent>
 
-        <Typography variant="body2" color="textSecondary">
-          10,094,526 回視聴 • 2018/08/06
-        </Typography>
-      </CardContent>
+    <Divider />
 
-      <Divider />
+    {/*
+      追加
+      title を投稿者の名前を表示する
+    */}
+    <CardHeader
+      className={styles.paddingHorizontalLess}
+      avatar={<Avatar />}
+      title={ownerName}
+      subheader="0 subscribers"
+    />
 
-      {/*
-        stylesの適用
-      */}
-      <CardHeader
-        className={styles.paddingHorizontalLess}
-        avatar={<Avatar />}
-        title="Movieclips Trailers"
-        subheader="104K subscribers"
-      />
-
-      {/*
-        stylesの適用
-      */}
-      <CardContent className={styles.descPadding}>
-        Find your absolutely beautiful and serene place and listen to nature
-        sounds, birds signing and relaxing water sounds with breathtaking views
-        of Mount Shuksan. It’s 8-hour 4k video of discovery and peace. Download
-        it for your personal use and transform your 4K TV into a source of
-        relaxation and restoration.
-      </CardContent>
-    </Card>
+    {/* 説明文エリア */}
+    <CardContent className={styles.descPadding}>{description}</CardContent>
+  </Card>
   );
 };

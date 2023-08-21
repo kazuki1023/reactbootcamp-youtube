@@ -1,15 +1,27 @@
 import { Button, CardMedia, Grid, Typography } from "@material-ui/core";
-import { useState, useRef, ChangeEvent, useEffect} from "react";
+import { useState, useRef, ChangeEvent, useEffect, Dispatch, SetStateAction} from "react";
 
 // スタイルimport
 import useStyles from "./style";
 
-export const VideoSelect = () => {
+// VideoSelectコンポーネントのプロップスとして、引数を型定義する
+export type VideoSelectProps = {
+  videoFile: File | undefined;
+  setVideoFile: Dispatch<SetStateAction<File | undefined>>;
+  setThumbFile: Dispatch<SetStateAction<File | undefined>>;
+};
+
+export const VideoSelect = ({
+  videoFile,
+  setVideoFile,
+  setThumbFile,
+}: VideoSelectProps) => {
   const styles = useStyles();
   const [file, setFile] = useState<File>();
   const [videoURL, setVideoURL] = useState<string>();
   const [thumbnailURLs, setThumbnailURLs] = useState<string[]>([]);
 
+  const [selectThumbURL, setSelectThumbURL] = useState<string>();
   // サムネイルを生成する関数
   const createThumbnail = (videoRefURL: string) => {
     // サムネイル生成のための準備
@@ -50,10 +62,27 @@ export const VideoSelect = () => {
     video.src = videoRefURL;
     video.load();
   };
+  // サムネイルを選択して、
+  // 1. 参照URLを`selectThumbURL`に格納
+  // 2. 参照URLから画像ファイルを生成し、`setThumbFile`でファイルを親コンポーネントに渡す
+  const selectedThumb = (url: string) => {
+    //  参照URLを`selectThumbURL`に格納
+    setSelectThumbURL(url);
+
+  // 参照URLから画像ファイルを生成し、`setThumbFile`でファイルを親コンポーネントに渡す
+    fetch(url)
+      .then((res) => {
+        return res.blob();
+      })
+      .then((blob) => {
+        const thumb = new File([blob], "thumb.jpeg");
+        setThumbFile(thumb);
+      });
+  };
   // 「ファイルを選択」したあとに、選択されたファイルを上記のfileに代入する処理
   const selectedFile = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.files?.length) {
-      setFile(event.currentTarget.files[0]);
+      setVideoFile(event.currentTarget.files[0]);
     }
   };
   const inputRef = useRef<HTMLInputElement>(null);
@@ -61,44 +90,61 @@ export const VideoSelect = () => {
     inputRef.current?.click();
   };
   useEffect(() => {
-    // ファイルが空の場合は、実行しない
-    if (file) {
-      // URL.createObjectURLは、ファイルを引数に受け取り、<video>タグで読み込み可能なローカルURLを生成します。
-      // URL.createObjectURLで生成されたURLを<video>のsrcにわたすことでファイルを動画で表示できます。
-      const videoURL = URL.createObjectURL(file);
+    if (videoFile) {
+      const videoURL = URL.createObjectURL(videoFile);
       setVideoURL(videoURL);
       createThumbnail(videoURL);
     }
-  }, [file]);
-  return (
-    // スタイリング適用
-    <div className={styles.root}>
+  }, [videoFile]);
 
+  // 追加
+  // サムネイルが生成_`されたら、最初のサムネイルを必ず選択にする
+  // これで、サムネイルが選択されずに動画をアップロードすることを防ぐ
+  useEffect(() => {
+    if (thumbnailURLs.length && thumbnailURLs[0] !== selectThumbURL) {
+      selectedThumb(thumbnailURLs[0]);
+    }
+  }, [thumbnailURLs]);
+  return (
+    <div className={styles.root}>
 
       {videoURL && (
         <div className={styles.full}>
           <CardMedia component="video" src={videoURL} controls />
 
-          {/* スタイリング適用 */}
           <Typography className={styles.textPadding}>サムネイル</Typography>
-
-          {/* スタイリング適用 */}
           <Grid container spacing={2} className={styles.thumbnailContent}>
             {thumbnailURLs.map((url) => {
               return (
                 <Grid item xs={4}>
-                  <CardMedia image={url} style={{ paddingTop: "56.25%" }} />
+                  <CardMedia
+
+                    // 追加
+                    // サムネイルのスタリングを`useStyles`に移行
+                    // サムネイル用のスタリングと選択中のサムネイルのスタリングを追加
+                    className={`${styles.thumbnail} ${
+                      url === selectThumbURL ? styles.selectedThumb : ""
+                    }`}
+                    image={url}
+
+                    // 追加
+                    // サムネイル画像を押したら、その画像をサムネイルとして選択する
+                    onClick={() => {
+                      selectedThumb(url);
+                    }}
+                  />
                 </Grid>
               );
             })}
           </Grid>
         </div>
       )}
-
       <input type="file" hidden ref={inputRef} onChange={selectedFile} />
-
-      {/* ボタンのスタイルを調整 */}
-      {!videoURL && <Button  variant="contained" color="primary"  onClick={handleClick}>ファイルを選択</Button>}
+      {!videoURL && (
+        <Button variant="contained" color="primary" onClick={handleClick}>
+          ファイルを選択
+        </Button>
+      )}
     </div>
   );
 };

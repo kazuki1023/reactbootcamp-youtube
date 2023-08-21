@@ -374,6 +374,7 @@ export type Timestamptz_Comparison_Exp = {
 export type Users = {
   __typename?: 'users';
   created_at: Scalars['timestamptz']['output'];
+  email?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   profile_photo_url: Scalars['String']['output'];
@@ -408,6 +409,7 @@ export type Users_Bool_Exp = {
   _not?: InputMaybe<Users_Bool_Exp>;
   _or?: InputMaybe<Array<Users_Bool_Exp>>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  email?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   profile_photo_url?: InputMaybe<String_Comparison_Exp>;
@@ -423,6 +425,7 @@ export enum Users_Constraint {
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   profile_photo_url?: InputMaybe<Scalars['String']['input']>;
@@ -433,6 +436,7 @@ export type Users_Insert_Input = {
 export type Users_Max_Fields = {
   __typename?: 'users_max_fields';
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   profile_photo_url?: Maybe<Scalars['String']['output']>;
@@ -443,6 +447,7 @@ export type Users_Max_Fields = {
 export type Users_Min_Fields = {
   __typename?: 'users_min_fields';
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   profile_photo_url?: Maybe<Scalars['String']['output']>;
@@ -458,6 +463,13 @@ export type Users_Mutation_Response = {
   returning: Array<Users>;
 };
 
+/** input type for inserting object relation for remote table "users" */
+export type Users_Obj_Rel_Insert_Input = {
+  data: Users_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
 /** on_conflict condition type for table "users" */
 export type Users_On_Conflict = {
   constraint: Users_Constraint;
@@ -468,6 +480,7 @@ export type Users_On_Conflict = {
 /** Ordering options when selecting data from "users". */
 export type Users_Order_By = {
   created_at?: InputMaybe<Order_By>;
+  email?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   profile_photo_url?: InputMaybe<Order_By>;
@@ -484,6 +497,8 @@ export enum Users_Select_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  Email = 'email',
+  /** column name */
   Id = 'id',
   /** column name */
   Name = 'name',
@@ -496,6 +511,7 @@ export enum Users_Select_Column {
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   profile_photo_url?: InputMaybe<Scalars['String']['input']>;
@@ -513,6 +529,7 @@ export type Users_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Users_Stream_Cursor_Value_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   profile_photo_url?: InputMaybe<Scalars['String']['input']>;
@@ -523,6 +540,8 @@ export type Users_Stream_Cursor_Value_Input = {
 export enum Users_Update_Column {
   /** column name */
   CreatedAt = 'created_at',
+  /** column name */
+  Email = 'email',
   /** column name */
   Id = 'id',
   /** column name */
@@ -547,7 +566,10 @@ export type Videos = {
   description: Scalars['String']['output'];
   duration: Scalars['Int']['output'];
   id: Scalars['String']['output'];
+  /** An object relationship */
+  owner?: Maybe<Users>;
   owner_id: Scalars['String']['output'];
+  thunbnail_url: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updated_at: Scalars['timestamptz']['output'];
   video_url: Scalars['String']['output'];
@@ -600,7 +622,9 @@ export type Videos_Bool_Exp = {
   description?: InputMaybe<String_Comparison_Exp>;
   duration?: InputMaybe<Int_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
+  owner?: InputMaybe<Users_Bool_Exp>;
   owner_id?: InputMaybe<String_Comparison_Exp>;
+  thunbnail_url?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   video_url?: InputMaybe<String_Comparison_Exp>;
@@ -625,7 +649,9 @@ export type Videos_Insert_Input = {
   description?: InputMaybe<Scalars['String']['input']>;
   duration?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  owner?: InputMaybe<Users_Obj_Rel_Insert_Input>;
   owner_id?: InputMaybe<Scalars['String']['input']>;
+  thunbnail_url?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   video_url?: InputMaybe<Scalars['String']['input']>;
@@ -640,6 +666,7 @@ export type Videos_Max_Fields = {
   duration?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   owner_id?: Maybe<Scalars['String']['output']>;
+  thunbnail_url?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   video_url?: Maybe<Scalars['String']['output']>;
@@ -654,6 +681,7 @@ export type Videos_Min_Fields = {
   duration?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   owner_id?: Maybe<Scalars['String']['output']>;
+  thunbnail_url?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   video_url?: Maybe<Scalars['String']['output']>;
@@ -682,7 +710,9 @@ export type Videos_Order_By = {
   description?: InputMaybe<Order_By>;
   duration?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  owner?: InputMaybe<Users_Order_By>;
   owner_id?: InputMaybe<Order_By>;
+  thunbnail_url?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   video_url?: InputMaybe<Order_By>;
@@ -707,6 +737,8 @@ export enum Videos_Select_Column {
   /** column name */
   OwnerId = 'owner_id',
   /** column name */
+  ThunbnailUrl = 'thunbnail_url',
+  /** column name */
   Title = 'title',
   /** column name */
   UpdatedAt = 'updated_at',
@@ -723,6 +755,7 @@ export type Videos_Set_Input = {
   duration?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   owner_id?: InputMaybe<Scalars['String']['input']>;
+  thunbnail_url?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   video_url?: InputMaybe<Scalars['String']['input']>;
@@ -765,6 +798,7 @@ export type Videos_Stream_Cursor_Value_Input = {
   duration?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   owner_id?: InputMaybe<Scalars['String']['input']>;
+  thunbnail_url?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   video_url?: InputMaybe<Scalars['String']['input']>;
@@ -790,6 +824,8 @@ export enum Videos_Update_Column {
   Id = 'id',
   /** column name */
   OwnerId = 'owner_id',
+  /** column name */
+  ThunbnailUrl = 'thunbnail_url',
   /** column name */
   Title = 'title',
   /** column name */
@@ -833,24 +869,59 @@ export type Videos_Variance_Fields = {
 export type InsertUserMutationVariables = Exact<{
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
+  email: Scalars['String']['input'];
 }>;
 
 
-export type InsertUserMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', id: string, name: string, profile_photo_url: string, created_at: any, updated_at: any } | null };
+export type InsertUserMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', id: string, name: string, email?: string | null, profile_photo_url: string, created_at: any, updated_at: any } | null };
+
+export type InsertVideoMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  thumbnail_url: Scalars['String']['input'];
+  video_url: Scalars['String']['input'];
+  owner_id: Scalars['String']['input'];
+}>;
+
+
+export type InsertVideoMutation = { __typename?: 'mutation_root', insert_videos_one?: { __typename?: 'videos', id: string, title: string, description: string, video_url: string, thunbnail_url: string, owner_id: string, duration: number, views: number, updated_at: any, created_at: any } | null };
+
+export type RecommendVideosQueryVariables = Exact<{
+  currentVideoId: Scalars['String']['input'];
+}>;
+
+
+export type RecommendVideosQuery = { __typename?: 'query_root', videos: Array<{ __typename?: 'videos', id: string, title: string, description: string, thunbnail_url: string, video_url: string, views: number, duration: number, created_at: any, updated_at: any, owner?: { __typename?: 'users', id: string, name: string, profile_photo_url: string, updated_at: any, email?: string | null, created_at: any } | null }> };
+
+export type VideoByPkQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type VideoByPkQuery = { __typename?: 'query_root', videos_by_pk?: { __typename?: 'videos', id: string, title: string, thunbnail_url: string, video_url: string, views: number, duration: number, description: string, updated_at: any, created_at: any, owner?: { __typename?: 'users', id: string, name: string, profile_photo_url: string, email?: string | null, updated_at: any, created_at: any } | null } | null };
+
+export type VideosQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type VideosQuery = { __typename?: 'query_root', videos: Array<{ __typename?: 'videos', id: string, title: string, description: string, thunbnail_url: string, video_url: string, owner_id: string, duration: number, views: number, created_at: any, owner?: { __typename?: 'users', id: string, email?: string | null, name: string, profile_photo_url: string, updated_at: any, created_at: any } | null }> };
 
 export type UserByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type UserByIdQuery = { __typename?: 'query_root', users_by_pk?: { __typename?: 'users', id: string, name: string, profile_photo_url: string, updated_at: any, created_at: any } | null };
+export type UserByIdQuery = { __typename?: 'query_root', users_by_pk?: { __typename?: 'users', id: string, name: string, email?: string | null, profile_photo_url: string, updated_at: any, created_at: any } | null };
 
 
 export const InsertUserDocument = gql`
-    mutation InsertUser($id: String!, $name: String!) {
-  insert_users_one(object: {id: $id, name: $name, profile_photo_url: ""}) {
+    mutation InsertUser($id: String!, $name: String!, $email: String!) {
+  insert_users_one(
+    object: {id: $id, name: $name, profile_photo_url: "", email: $email}
+  ) {
     id
     name
+    email
     profile_photo_url
     created_at
     updated_at
@@ -874,6 +945,7 @@ export type InsertUserMutationFn = Apollo.MutationFunction<InsertUserMutation, I
  *   variables: {
  *      id: // value for 'id'
  *      name: // value for 'name'
+ *      email: // value for 'email'
  *   },
  * });
  */
@@ -884,11 +956,213 @@ export function useInsertUserMutation(baseOptions?: Apollo.MutationHookOptions<I
 export type InsertUserMutationHookResult = ReturnType<typeof useInsertUserMutation>;
 export type InsertUserMutationResult = Apollo.MutationResult<InsertUserMutation>;
 export type InsertUserMutationOptions = Apollo.BaseMutationOptions<InsertUserMutation, InsertUserMutationVariables>;
+export const InsertVideoDocument = gql`
+    mutation InsertVideo($id: String!, $title: String!, $description: String = "", $thumbnail_url: String!, $video_url: String!, $owner_id: String!) {
+  insert_videos_one(
+    object: {id: $id, title: $title, description: $description, video_url: $video_url, thunbnail_url: $thumbnail_url, owner_id: $owner_id, duration: 0, views: 0}
+  ) {
+    id
+    title
+    description
+    video_url
+    thunbnail_url
+    owner_id
+    duration
+    views
+    updated_at
+    created_at
+  }
+}
+    `;
+export type InsertVideoMutationFn = Apollo.MutationFunction<InsertVideoMutation, InsertVideoMutationVariables>;
+
+/**
+ * __useInsertVideoMutation__
+ *
+ * To run a mutation, you first call `useInsertVideoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertVideoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertVideoMutation, { data, loading, error }] = useInsertVideoMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      title: // value for 'title'
+ *      description: // value for 'description'
+ *      thumbnail_url: // value for 'thumbnail_url'
+ *      video_url: // value for 'video_url'
+ *      owner_id: // value for 'owner_id'
+ *   },
+ * });
+ */
+export function useInsertVideoMutation(baseOptions?: Apollo.MutationHookOptions<InsertVideoMutation, InsertVideoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertVideoMutation, InsertVideoMutationVariables>(InsertVideoDocument, options);
+      }
+export type InsertVideoMutationHookResult = ReturnType<typeof useInsertVideoMutation>;
+export type InsertVideoMutationResult = Apollo.MutationResult<InsertVideoMutation>;
+export type InsertVideoMutationOptions = Apollo.BaseMutationOptions<InsertVideoMutation, InsertVideoMutationVariables>;
+export const RecommendVideosDocument = gql`
+    query RecommendVideos($currentVideoId: String!) {
+  videos(where: {id: {_neq: $currentVideoId}}) {
+    id
+    title
+    description
+    thunbnail_url
+    video_url
+    views
+    duration
+    owner {
+      id
+      name
+      profile_photo_url
+      updated_at
+      email
+      created_at
+    }
+    created_at
+    updated_at
+  }
+}
+    `;
+
+/**
+ * __useRecommendVideosQuery__
+ *
+ * To run a query within a React component, call `useRecommendVideosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecommendVideosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecommendVideosQuery({
+ *   variables: {
+ *      currentVideoId: // value for 'currentVideoId'
+ *   },
+ * });
+ */
+export function useRecommendVideosQuery(baseOptions: Apollo.QueryHookOptions<RecommendVideosQuery, RecommendVideosQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecommendVideosQuery, RecommendVideosQueryVariables>(RecommendVideosDocument, options);
+      }
+export function useRecommendVideosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecommendVideosQuery, RecommendVideosQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecommendVideosQuery, RecommendVideosQueryVariables>(RecommendVideosDocument, options);
+        }
+export type RecommendVideosQueryHookResult = ReturnType<typeof useRecommendVideosQuery>;
+export type RecommendVideosLazyQueryHookResult = ReturnType<typeof useRecommendVideosLazyQuery>;
+export type RecommendVideosQueryResult = Apollo.QueryResult<RecommendVideosQuery, RecommendVideosQueryVariables>;
+export const VideoByPkDocument = gql`
+    query VideoByPk($id: String!) {
+  videos_by_pk(id: $id) {
+    id
+    title
+    thunbnail_url
+    video_url
+    views
+    duration
+    description
+    owner {
+      id
+      name
+      profile_photo_url
+      email
+      updated_at
+      created_at
+    }
+    updated_at
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useVideoByPkQuery__
+ *
+ * To run a query within a React component, call `useVideoByPkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVideoByPkQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVideoByPkQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useVideoByPkQuery(baseOptions: Apollo.QueryHookOptions<VideoByPkQuery, VideoByPkQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VideoByPkQuery, VideoByPkQueryVariables>(VideoByPkDocument, options);
+      }
+export function useVideoByPkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VideoByPkQuery, VideoByPkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VideoByPkQuery, VideoByPkQueryVariables>(VideoByPkDocument, options);
+        }
+export type VideoByPkQueryHookResult = ReturnType<typeof useVideoByPkQuery>;
+export type VideoByPkLazyQueryHookResult = ReturnType<typeof useVideoByPkLazyQuery>;
+export type VideoByPkQueryResult = Apollo.QueryResult<VideoByPkQuery, VideoByPkQueryVariables>;
+export const VideosDocument = gql`
+    query Videos {
+  videos {
+    id
+    title
+    description
+    thunbnail_url
+    video_url
+    owner_id
+    duration
+    views
+    owner {
+      id
+      email
+      name
+      profile_photo_url
+      updated_at
+      created_at
+    }
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useVideosQuery__
+ *
+ * To run a query within a React component, call `useVideosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVideosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVideosQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useVideosQuery(baseOptions?: Apollo.QueryHookOptions<VideosQuery, VideosQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VideosQuery, VideosQueryVariables>(VideosDocument, options);
+      }
+export function useVideosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VideosQuery, VideosQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VideosQuery, VideosQueryVariables>(VideosDocument, options);
+        }
+export type VideosQueryHookResult = ReturnType<typeof useVideosQuery>;
+export type VideosLazyQueryHookResult = ReturnType<typeof useVideosLazyQuery>;
+export type VideosQueryResult = Apollo.QueryResult<VideosQuery, VideosQueryVariables>;
 export const UserByIdDocument = gql`
     query UserById($id: String!) {
   users_by_pk(id: $id) {
     id
     name
+    email
     profile_photo_url
     updated_at
     created_at

@@ -3,17 +3,19 @@ import HomeIcon from "@material-ui/icons/Home";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import SubscriptionsIcon from "@material-ui/icons/Subscriptions";
 import useStyles from "./style";
+import { Link } from "react-router-dom";
 
 export const Sidebar = () => {
   const styles = useStyles();
   return (
     <List className={styles.root} component="nav">
-      <ListItem button>
+      <ListItem button component={Link} to="/">
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="ホーム" />
       </ListItem>
+
       <ListItem button>
         <ListItemIcon>
           <WhatshotIcon />

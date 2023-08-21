@@ -7,12 +7,15 @@ import { createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 
 import GlobalStyle from "./GlobalStyle";
 import {
-  ApolloProvider,
   ApolloClient,
   createHttpLink,
   InMemoryCache,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { RecoilRoot } from "recoil";
+import { AuthStateListener } from "./providers/AuthStateListener";
+import { GlobalAccout } from "./providers/GlobalAccount";
+import { ApolloProvider } from "./providers/ApolloClient";
 
 // GraphQl APIのエンドポイントを指定する
 const httpLink = createHttpLink({
@@ -48,24 +51,24 @@ const theme = createTheme();
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* 
-      Material-UI用を初期化し、アプリケーション全体でMaterial-UIを使用できるようにする
-    */}
-    <ThemeProvider theme={theme}>
-      {/*
-        Apollo Clientを初期化して、アプリケーション全体でApollo Clientを使えるようにする
-      */}
-      <ApolloProvider client={apolloClient}>
-        <BrowserRouter>
-        {/*
-          ブラウザの違いを吸収し、どのデバイスでは同じように表示する用のCSSを使用する
-        */}
-          <CssBaseline />
-          <GlobalStyle />
-          <RootRouter />
-        </BrowserRouter>
-      </ApolloProvider>
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <ApolloProvider >
+          {/*
+            ユーザーの認証情報を読む込み
+          */}
+          <AuthStateListener>
+          <GlobalAccout>
+              <BrowserRouter>
+                <CssBaseline />
+                {/* <GlobalStyle /> */}
+                <RootRouter />
+              </BrowserRouter>
+            </GlobalAccout>
+          </AuthStateListener>
+        </ApolloProvider>
+      </ThemeProvider>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById("root")
 );
