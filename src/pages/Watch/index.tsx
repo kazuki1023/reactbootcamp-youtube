@@ -10,29 +10,17 @@ import { VideoHorizontalCard } from "../../components/VideoHorizontalCard";
 import { storage } from "../../utils/Firebase/config";
 import { Link } from "react-router-dom";
 
-export const Watch = () => {
+const WatchContent = ({ videoId }: { videoId: string }) => {
   const styles = useStyles();
-  // 追加
-  // URLから再生する動画のIDを取得する
-  const { videoId } = useParams();
-
-
-  // 追加
-  // 再生する動画を取得する
   const { data: currentVideo } = useVideoByPkQuery({
-    variables: {
-      id: videoId,
-    },
+    variables: { id: videoId }
   });
 
-  // 追加
-  // リコメンドの動画を取得する
   const { data: recommendVides } = useRecommendVideosQuery({
-    variables: {
-      currentVideoId: videoId,
-    },
+    variables: { currentVideoId: videoId }
   });
-  return (
+
+ return (
     <Container className={styles.root}>
       <Grid container spacing={2}>
         <Grid item xs={8}>
@@ -94,4 +82,14 @@ export const Watch = () => {
       </Grid>
     </Container>
   );
+};
+
+export const Watch = () => {
+  const { videoId } = useParams();
+
+  if (!videoId) {
+    return null; // またはエラーメッセージやデフォルトのコンテンツを表示する
+  }
+
+  return <WatchContent videoId={videoId} />;
 };

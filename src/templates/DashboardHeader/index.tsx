@@ -28,7 +28,6 @@ export const DashboardHeader = () => {
 
   useEffect(() => {
     console.log(data);
-    console.log(error);
   }, [data]);
 
   return (
